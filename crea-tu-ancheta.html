@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crea tu Ancheta · Anchetas con Amor ✨</title>
+  <link rel="stylesheet" href="shared.css"/>
+  <style>
+    /* ── Hero ── */
+    .page-hero::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse 85% 55% at 50% 0%, rgba(200,155,90,0.2) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .hero-tag { background:var(--light-gold); color:var(--gold); border:1px solid rgba(200,155,90,0.3); }
+    .page-hero h1 em { color:var(--gold); }
+
+    /* ── Steps ── */
+    .steps-bar {
+      display:flex; justify-content:center; align-items:center;
+      gap:0; padding:24px 5% 36px; max-width:680px; margin:0 auto;
+    }
+    .step { display:flex; flex-direction:column; align-items:center; gap:6px; flex:1; position:relative; }
+    .step:not(:last-child)::after {
+      content:''; position:absolute; top:18px; left:calc(50% + 22px); right:calc(-50% + 22px);
+      height:2px; background:var(--light-gold);
+    }
+    .step.done:not(:last-child)::after,
+    .step.active:not(:last-child)::after { background:var(--gold); }
+    .step-dot {
+      width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+      font-size:0.95rem; font-weight:800; background:var(--warm-white);
+      border:2px solid var(--light-gold); color:var(--text-light); transition:all 0.3s; z-index:1;
+    }
+    .step.active .step-dot { background:var(--rose); border-color:var(--rose); color:#fff; }
+    .step.done   .step-dot { background:var(--gold); border-color:var(--gold); color:#fff; }
+    .step-label  { font-size:0.7rem; font-weight:700; color:var(--text-light); text-align:center; }
+    .step.active .step-label { color:var(--rose); }
+    .step.done   .step-label { color:var(--gold); }
+
+    /* ── Layout ── */
+    .builder-wrap {
+      display:grid; grid-template-columns:1fr 390px; gap:28px;
+      padding:0 5% 100px; max-width:1200px; margin:0 auto;
+    }
+
+    /* ── Left panel ── */
+    .catalog-panel h2 {
+      font-family:'Playfair Display',serif; font-size:1.45rem;
+      color:var(--chocolate); margin-bottom:5px;
+    }
+    .catalog-panel > .sub { color:var(--text-light); font-size:0.86rem; margin-bottom:20px; }
+
+    .source-tabs { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+    .source-tab {
+      padding:8px 20px; border-radius:50px; border:2px solid var(--light-gold);
+      background:var(--warm-white); color:var(--text-light); font-weight:700;
+      font-size:0.82rem; cursor:pointer; transition:all 0.2s; font-family:'Nunito',sans-serif;
+    }
+    .source-tab.active { background:var(--rose); color:#fff; border-color:var(--rose); }
+
+    .mini-filter-bar { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:18px; }
+    .mini-filter {
+      padding:5px 14px; border-radius:50px; border:1.5px solid var(--light-gold);
+      background:var(--warm-white); color:var(--text-light); font-weight:700;
+      font-size:0.75rem; cursor:pointer; transition:all 0.2s; font-family:'Nunito',sans-serif;
+    }
+    .mini-filter:hover  { border-color:var(--blush); color:var(--rose); }
+    .mini-filter.active { background:var(--rose); color:#fff; border-color:var(--rose); }
+
+    .mini-grid {
+      display:grid; grid-template-columns:repeat(auto-fill, minmax(170px,1fr)); gap:12px;
+    }
+    .mini-card {
+      background:var(--warm-white); border-radius:16px; padding:14px 14px 16px;
+      border:1px solid rgba(200,155,90,0.14); box-shadow:0 3px 12px rgba(61,28,14,0.05);
+      transition:transform 0.2s, box-shadow 0.2s; display:flex; flex-direction:column;
+      align-items:center; gap:7px; text-align:center;
+    }
+    .mini-card:hover { transform:translateY(-4px); box-shadow:0 10px 26px rgba(61,28,14,0.1); }
+    .mini-card.hidden { display:none; }
+
+    .mini-img-wrap {
+      width:70px; height:70px; border-radius:12px; overflow:hidden;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    }
+    .mini-img-wrap img { width:100%; height:100%; object-fit:cover; }
+    .mini-emoji { font-size:2.2rem; }
+
+    .mini-name  { font-family:'Playfair Display',serif; font-size:0.82rem; color:var(--chocolate); line-height:1.3; }
+    .mini-price { font-size:0.76rem; color:var(--rose); font-weight:700; }
+    .mini-add {
+      background:var(--cream); border:2px solid var(--blush); color:var(--rose);
+      border-radius:50px; padding:5px 14px; font-weight:800; font-size:0.76rem;
+      cursor:pointer; transition:all 0.2s; width:100%; font-family:'Nunito',sans-serif;
+    }
+    .mini-add:hover { background:var(--rose); color:#fff; border-color:var(--rose); }
+
+    .hidden-panel { display:none; }
+
+    /* ── Cart panel ── */
+    .cart-panel {
+      position:sticky; top:88px; height:fit-content;
+      background:var(--warm-white); border-radius:24px; padding:26px 22px;
+      border:1px solid rgba(200,155,90,0.2); box-shadow:0 8px 40px rgba(61,28,14,0.08);
+      max-height: calc(100vh - 110px);
+      overflow-y: auto;
+    }
+    .cart-panel::-webkit-scrollbar { width: 5px; }
+    .cart-panel::-webkit-scrollbar-thumb { background: var(--light-gold); border-radius: 10px; }
+
+    .cart-panel h3 {
+      font-family:'Playfair Display',serif; font-size:1.25rem; color:var(--chocolate);
+      margin-bottom:5px; display:flex; align-items:center; justify-content:space-between;
+    }
+    .cart-count-badge {
+      background:var(--rose); color:#fff; font-size:0.68rem; font-weight:800;
+      padding:2px 9px; border-radius:50px; font-family:'Nunito',sans-serif;
+    }
+    .cart-subtitle { font-size:0.78rem; color:var(--text-light); margin-bottom:18px; }
+
+    /* Empty */
+    .cart-empty { text-align:center; padding:28px 0; }
+    .cart-empty .ei { font-size:2.8rem; margin-bottom:10px; }
+    .cart-empty p { color:var(--text-light); font-size:0.82rem; line-height:1.7; }
+    .cart-empty a { color:var(--rose); font-weight:700; text-decoration:none; }
+
+    /* Items */
+    .cart-items { display:flex; flex-direction:column; gap:9px; margin-bottom:16px; }
+    .cart-item {
+      display:flex; align-items:center; gap:10px; padding:9px 12px;
+      background:var(--cream); border-radius:13px; border:1px solid rgba(200,155,90,0.14);
+    }
+    .ci-thumb {
+      width:38px; height:38px; border-radius:9px; overflow:hidden; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      background:var(--light-gold);
+    }
+    .ci-thumb img  { width:100%; height:100%; object-fit:cover; }
+    .ci-thumb span { font-size:1.5rem; }
+    .ci-info { flex:1; min-width:0; }
+    .ci-name  { font-size:0.8rem; font-weight:700; color:var(--chocolate); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .ci-price { font-size:0.72rem; color:var(--text-light); }
+    .ci-controls { display:flex; align-items:center; gap:4px; flex-shrink:0; }
+    .ci-btn {
+      width:24px; height:24px; border-radius:50%; border:1.5px solid var(--blush);
+      background:none; color:var(--rose); font-size:0.88rem; font-weight:800;
+      cursor:pointer; transition:all 0.18s; display:flex; align-items:center; justify-content:center;
+      font-family:'Nunito',sans-serif;
+    }
+    .ci-btn:hover { background:var(--rose); color:#fff; border-color:var(--rose); }
+    .ci-qty { font-size:0.82rem; font-weight:800; min-width:18px; text-align:center; }
+
+    /* Totals */
+    .cart-divider { height:1px; background:var(--light-gold); margin:14px 0; }
+    .cart-total { display:flex; justify-content:space-between; font-size:0.86rem; color:var(--text-light); margin-bottom:5px; }
+    .cart-total.grand { font-size:1.1rem; font-family:'Playfair Display',serif; color:var(--chocolate); }
+    .cart-total.grand span:last-child { color:var(--rose); }
+
+    /* Message */
+    .message-field { margin:16px 0; }
+    .message-field label { display:block; font-size:0.78rem; font-weight:700; color:var(--text-light); margin-bottom:6px; letter-spacing:0.04em; }
+    .message-field textarea {
+      width:100%; padding:9px 13px; border-radius:12px;
+      border:1.5px solid var(--light-gold); background:var(--cream);
+      font-family:'Nunito',sans-serif; font-size:0.82rem; color:var(--text);
+      resize:none; height:68px; transition:border-color 0.2s;
+    }
+    .message-field textarea:focus { outline:none; border-color:var(--rose); }
+
+    /* Buttons */
+    .btn-order {
+      width:100%; padding:13px; border-radius:50px;
+      background:var(--rose); color:#fff; font-family:'Nunito',sans-serif;
+      font-weight:800; font-size:0.93rem; border:none; cursor:pointer;
+      box-shadow:0 6px 22px rgba(217,96,122,0.35); transition:background 0.2s, transform 0.2s;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      margin-bottom:9px; text-decoration:none;
+    }
+    .btn-order:hover { background:var(--deep-rose); transform:translateY(-2px); }
+    .btn-clear {
+      width:100%; padding:9px; border-radius:50px;
+      background:transparent; color:var(--text-light); font-family:'Nunito',sans-serif;
+      font-weight:700; font-size:0.8rem; border:1.5px solid var(--light-gold); cursor:pointer; transition:all 0.2s;
+    }
+    .btn-clear:hover { border-color:var(--rose); color:var(--rose); }
+
+    /* Responsive */
+    @media (max-width:900px) {
+      .builder-wrap { grid-template-columns:1fr; }
+      .cart-panel { position:static; max-height:none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="logo">🎁 Anchetas <span>con Amor</span></a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">🏠 Inicio</a></li>
+    <li class="dropdown">
+      <button>🛍️ Catálogo ▾</button>
+      <div class="dropdown-menu">
+        <a href="postres.html">🍰 Postres</a>
+        <div class="dropdown-divider"></div>
+        <a href="comida-fria.html">🧃 Comida Fría</a>
+        <div class="dropdown-divider"></div>
+        <a href="crea-tu-ancheta.html" style="color:var(--rose)">✨ Crea tu Ancheta</a>
+      </div>
+    </li>
+    <li><a href="servicios.html">💼 Servicios</a></li>
+    <li><a id="navWA" href="#" target="_blank" rel="noopener" class="btn-wa">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Contactar
+    </a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <span class="hero-tag">✨ Constructor de ancheta</span>
+  <h1>Arma tu <em>ancheta perfecta</em></h1>
+  <p>Elige de postres y comida fría. Cuando estés listo, envíanos el pedido por WhatsApp.</p>
+</div>
+
+<!-- Steps -->
+<div class="steps-bar">
+  <div class="step done">
+    <div class="step-dot">✓</div>
+    <span class="step-label">Explorar catálogo</span>
+  </div>
+  <div class="step active" id="step2">
+    <div class="step-dot">2</div>
+    <span class="step-label">Armar ancheta</span>
+  </div>
+  <div class="step" id="step3">
+    <div class="step-dot">3</div>
+    <span class="step-label">Enviar pedido</span>
+  </div>
+</div>
+
+<!-- Builder layout -->
+<div class="builder-wrap">
+
+  <!-- LEFT: mini catalog -->
+  <div class="catalog-panel">
+    <h2>Agrega productos</h2>
+    <p class="sub">Selecciona los productos que quieres incluir en tu ancheta.</p>
+
+    <div class="source-tabs">
+      <button class="source-tab active" id="tab-postres" onclick="showSection('postres',this)">🍰 Postres</button>
+      <button class="source-tab"        id="tab-fria"    onclick="showSection('fria',this)">🧃 Comida Fría</button>
+    </div>
+
+    <!-- Postres mini section -->
+    <div id="section-postres">
+      <div class="mini-filter-bar" id="mf-postres"></div>
+      <div class="mini-grid" id="mg-postres"></div>
+    </div>
+
+    <!-- Comida fría mini section -->
+    <div id="section-fria" class="hidden-panel">
+      <div class="mini-filter-bar" id="mf-fria"></div>
+      <div class="mini-grid" id="mg-fria"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: cart -->
+  <div class="cart-panel">
+    <h3>
+      Tu Ancheta 🎁
+      <span class="cart-count-badge" id="cartBadge">0</span>
+    </h3>
+    <p class="cart-subtitle">Productos seleccionados para tu regalo</p>
+
+    <div id="cartEmpty" class="cart-empty">
+      <div class="ei">🛒</div>
+      <p>Tu ancheta está vacía.<br>
+        Agrega productos desde el panel izquierdo,<br>
+        o explora <a href="postres.html">postres</a> y <a href="comida-fria.html">comida fría</a>.
+      </p>
+    </div>
+
+    <div id="cartItemsEl" class="cart-items" style="display:none"></div>
+
+    <div id="cartFooter" style="display:none">
+      <div class="cart-divider"></div>
+      <div class="cart-total"><span>Subtotal</span><span id="subtotal">$0</span></div>
+      <div class="cart-total"><span>Empaque & Decoración</span><span id="empaqueAmt">$5.000</span></div>
+      <div class="cart-total grand"><span>Total estimado</span><span id="grandTotal">$5.000</span></div>
+
+      <div class="message-field">
+        <label>💌 Mensaje para incluir en la ancheta (opcional)</label>
+        <textarea id="msgField" placeholder="Ej: ¡Feliz cumpleaños amor! Con todo mi cariño 🌹"></textarea>
+      </div>
+
+      <a id="btnOrder" href="#" class="btn-order" target="_blank" rel="noopener">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Pedir por WhatsApp
+      </a>
+      <button class="btn-clear" onclick="clearCart()">🗑️ Vaciar ancheta</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<footer>
+  <span class="footer-logo">🎁 Anchetas con Amor</span>
+  <p>¿Preguntas? Escríbenos por <a id="footerWA" href="#">WhatsApp</a></p>
+</footer>
+
+<script src="productos.js"></script>
+<script>
+  // ── Cart ──────────────────────────────────────────────
+  function getCart() { try { return JSON.parse(localStorage.getItem('ancheta_cart')) || []; } catch { return []; } }
+  function saveCart(c) { localStorage.setItem('ancheta_cart', JSON.stringify(c)); renderCart(); }
+
+  function fmt(n) { return '$' + n.toLocaleString('es-CO'); }
+
+  function addToCart(id) {
+    const prod = CATALOGO.find(p => p.id === id);
+    if (!prod) return;
+    let cart = getCart();
+    const ex = cart.find(i => i.id === id);
+    if (ex) { ex.qty += 1; } else { cart.push({ id:prod.id, name:prod.name, emoji:prod.emoji, image:prod.image||'', price:prod.price, qty:1, seccion:prod.seccion }); }
+    saveCart(cart);
+    showToast('🎁 ' + prod.name + ' agregado');
+  }
+
+  function changeCartQty(id, delta) {
+    let cart = getCart();
+    const idx = cart.findIndex(i => i.id === id);
+    if (idx === -1) return;
+    cart[idx].qty += delta;
+    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+    saveCart(cart);
+  }
+
+  function clearCart() {
+    if (!confirm('¿Vaciar tu ancheta?')) return;
+    localStorage.removeItem('ancheta_cart');
+    renderCart();
+  }
+
+  // ── Render cart ───────────────────────────────────────
+  function renderCart() {
+    const cart    = getCart();
+    const total   = cart.reduce((s, i) => s + i.qty, 0);
+    const sub     = cart.reduce((s, i) => s + i.qty * i.price, 0);
+    const empaque = CONFIG.empaque;
+
+    document.getElementById('cartBadge').textContent = total;
+    document.getElementById('cartEmpty').style.display    = cart.length === 0 ? 'block' : 'none';
+    document.getElementById('cartItemsEl').style.display  = cart.length > 0  ? 'flex'  : 'none';
+    document.getElementById('cartFooter').style.display   = cart.length > 0  ? 'block' : 'none';
+
+    // step 3
+    document.getElementById('step3').classList.toggle('active', cart.length > 0);
+
+    if (cart.length > 0) {
+      document.getElementById('subtotal').textContent   = fmt(sub);
+      document.getElementById('empaqueAmt').textContent = fmt(empaque);
+      document.getElementById('grandTotal').textContent = fmt(sub + empaque);
+
+      const el = document.getElementById('cartItemsEl');
+      el.innerHTML = '';
+      cart.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        const thumbHTML = item.image
+          ? `<img src="${item.image}" alt="${item.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span style="display:none">${item.emoji}</span>`
+          : `<span>${item.emoji}</span>`;
+        div.innerHTML = `
+          <div class="ci-thumb">${thumbHTML}</div>
+          <div class="ci-info">
+            <div class="ci-name">${item.name}</div>
+            <div class="ci-price">${fmt(item.price)} c/u · ${fmt(item.price * item.qty)}</div>
+          </div>
+          <div class="ci-controls">
+            <button class="ci-btn" onclick="changeCartQty('${item.id}',-1)">−</button>
+            <span class="ci-qty">${item.qty}</span>
+            <button class="ci-btn" onclick="changeCartQty('${item.id}',1)">+</button>
+          </div>`;
+        el.appendChild(div);
+      });
+      updateWALink(cart, sub);
+    }
+  }
+
+  function updateWALink(cart, sub) {
+    const msg_field = document.getElementById('msgField');
+    const msg = msg_field ? msg_field.value : '';
+    let text = `🎁 *Pedido de Ancheta — ${CONFIG.nombre_negocio}*\n\n*Productos:*\n`;
+    cart.forEach(i => { text += `• ${i.emoji} ${i.name} x${i.qty} = ${fmt(i.price * i.qty)}\n`; });
+    text += `\n📦 Empaque & Decoración: ${fmt(CONFIG.empaque)}`;
+    text += `\n💰 *Total estimado: ${fmt(sub + CONFIG.empaque)}*`;
+    if (msg.trim()) text += `\n\n💌 *Mensaje para la ancheta:*\n"${msg.trim()}"`;
+    text += '\n\n¡Hola! Quisiera hacer este pedido 😊';
+    document.getElementById('btnOrder').href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(text);
+  }
+
+  document.addEventListener('input', e => {
+    if (e.target.id === 'msgField') {
+      const cart = getCart();
+      const sub  = cart.reduce((s, i) => s + i.qty * i.price, 0);
+      updateWALink(cart, sub);
+    }
+  });
+
+  // ── Build mini catalogs ───────────────────────────────
+  const CAT_LABELS = {
+    // postres
+    'tortas':'🎂 Tortas','chocolates':'🍫 Chocolates','galletas':'🍪 Galletas',
+    'frutas-dulces':'🍓 Frutas dulces','especiales':'⭐ Especiales',
+    // fria
+    'bebidas':'🥤 Bebidas','snacks':'🍿 Snacks','quesos':'🧀 Quesos',
+    'frutas-frescas':'🍉 Frutas','saludables':'🥗 Saludables'
+  };
+
+  function buildMiniSection(seccion) {
+    const prods = CATALOGO.filter(p => p.seccion === seccion && p.active);
+    const filterBar = document.getElementById('mf-' + seccion);
+    const grid = document.getElementById('mg-' + seccion);
+
+    // mini filters
+    const btnAll = document.createElement('button');
+    btnAll.className = 'mini-filter active'; btnAll.dataset.filter = 'all'; btnAll.textContent = '✨ Todos';
+    filterBar.appendChild(btnAll);
+
+    const cats = [...new Set(prods.map(p => p.category))];
+    cats.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'mini-filter'; btn.dataset.filter = cat;
+      btn.textContent = CAT_LABELS[cat] || cat;
+      filterBar.appendChild(btn);
+    });
+
+    filterBar.addEventListener('click', e => {
+      const btn = e.target.closest('.mini-filter');
+      if (!btn) return;
+      filterBar.querySelectorAll('.mini-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.filter;
+      grid.querySelectorAll('.mini-card').forEach(card => {
+        card.classList.toggle('hidden', !(cat === 'all' || card.dataset.cat === cat));
+      });
+    });
+
+    // cards
+    prods.forEach(prod => {
+      const div = document.createElement('div');
+      div.className = 'mini-card'; div.dataset.cat = prod.category;
+      const thumbHTML = prod.image
+        ? `<img src="${prod.image}" alt="${prod.name}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mini-emoji" style="display:none">${prod.emoji}</span>`
+        : `<span class="mini-emoji">${prod.emoji}</span>`;
+      div.innerHTML = `
+        <div class="mini-img-wrap">${thumbHTML}</div>
+        <div class="mini-name">${prod.name}</div>
+        <div class="mini-price">${fmt(prod.price)} <small style="font-weight:400;color:var(--text-light)">/ ${prod.unit}</small></div>
+        <button class="mini-add" onclick="addToCart('${prod.id}')">+ Agregar</button>`;
+      grid.appendChild(div);
+    });
+  }
+
+  function showSection(seccion, btn) {
+    document.querySelectorAll('.source-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('section-postres').classList.toggle('hidden-panel', seccion !== 'postres');
+    document.getElementById('section-fria').classList.toggle('hidden-panel', seccion !== 'fria');
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // ── Nav ───────────────────────────────────────────────
+  window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', scrollY > 20));
+  document.getElementById('hamburger').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+
+  // ── Init ──────────────────────────────────────────────
+  document.getElementById('navWA').href    = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent('Hola! Me interesa una ancheta 🎁');
+  document.getElementById('footerWA').href = 'https://wa.me/' + CONFIG.whatsapp;
+
+  buildMiniSection('postres');
+  buildMiniSection('fria');
+  renderCart();
+</script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+/* =====================================================
+   shared.css — Estilos compartidos entre todas las páginas
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800&display=swap');
+
+/* ── Variables globales ── */
+:root {
+  --cream: #FDF6EC;
+  --warm-white: #FFFDF9;
+  --blush: #F2A7B0;
+  --rose: #D9607A;
+  --deep-rose: #A63C52;
+  --gold: #C89B5A;
+  --light-gold: #F0D9B0;
+  --chocolate: #3D1C0E;
+  --text: #2B1A10;
+  --text-light: #8A6A58;
+  --teal: #4A9E7F;
+  --deep-teal: #2E7A5E;
+  --mint: #A8D5BA;
+  --light-sky: #D6F0F0;
+  --success: #4CAF50;
+  --radius-card: 22px;
+  --shadow-card: 0 4px 20px rgba(61,28,14,0.07);
+  --shadow-hover: 0 16px 42px rgba(61,28,14,0.13);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+/* ── Navbar ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 15px 5%;
+  background: rgba(253,246,236,0.93); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(200,155,90,0.2);
+  box-shadow: 0 2px 24px rgba(61,28,14,0.06);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 4px 30px rgba(61,28,14,0.1); }
+
+.logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--rose); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.logo span { font-style: italic; color: var(--gold); }
+
+.nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+.nav-links li a, .nav-links li button {
+  font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 0.88rem;
+  color: var(--text); text-decoration: none; background: none; border: none;
+  cursor: pointer; padding: 8px 15px; border-radius: 50px;
+  transition: background 0.22s, color 0.22s; letter-spacing: 0.02em;
+}
+.nav-links li a:hover, .nav-links li button:hover { background: var(--light-gold); color: var(--deep-rose); }
+.nav-links li a.active { background: var(--rose); color: #fff; }
+
+.dropdown { position: relative; }
+.dropdown-menu {
+  display: none; position: absolute; top: calc(100% + 12px); left: 50%;
+  transform: translateX(-50%); background: var(--warm-white);
+  border: 1px solid var(--light-gold); border-radius: 18px;
+  box-shadow: 0 12px 44px rgba(61,28,14,0.13); min-width: 210px; z-index: 200;
+  overflow: hidden; animation: dropIn 0.2s ease;
+}
+@keyframes dropIn { from{opacity:0;transform:translateX(-50%) translateY(-10px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+.dropdown:hover .dropdown-menu, .dropdown:focus-within .dropdown-menu { display: block; }
+.dropdown-menu a {
+  display: flex; align-items: center; gap: 10px; padding: 13px 20px;
+  font-size: 0.87rem; font-weight: 600; color: var(--text); text-decoration: none; transition: background 0.2s;
+}
+.dropdown-menu a:hover { background: var(--cream); color: var(--rose); }
+.dropdown-divider { height: 1px; background: var(--light-gold); margin: 0 14px; }
+
+.btn-wa {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--rose); color: #fff !important; padding: 9px 20px; border-radius: 50px;
+  font-weight: 700 !important; font-size: 0.87rem !important; text-decoration: none;
+  box-shadow: 0 4px 18px rgba(217,96,122,0.3); transition: background 0.22s, transform 0.2s, box-shadow 0.2s;
+}
+.btn-wa:hover { background: var(--deep-rose) !important; transform: translateY(-2px); box-shadow: 0 8px 26px rgba(217,96,122,0.4); }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+.hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+
+/* ── Animaciones globales ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+@keyframes badgePop { from{opacity:0;transform:scale(0.5) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+
+/* ── Toast global ── */
+#toast {
+  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(14px);
+  background: var(--chocolate); color: #fff; padding: 11px 26px; border-radius: 50px;
+  font-weight: 700; font-size: 0.87rem; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s; z-index: 9999; white-space: nowrap;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── Ancheta badge flotante ── */
+#anchetaBadge {
+  position: fixed; bottom: 26px; right: 26px; z-index: 900;
+  background: var(--rose); color: #fff;
+  padding: 13px 22px; border-radius: 50px;
+  font-weight: 800; font-size: 0.9rem;
+  box-shadow: 0 8px 32px rgba(217,96,122,0.45);
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  animation: badgePop 0.4s cubic-bezier(.34,1.56,.64,1) both;
+}
+#anchetaBadge:hover { background: var(--deep-rose); transform: translateY(-3px) scale(1.03); }
+#anchetaBadge .count {
+  background: #fff; color: var(--rose); font-size: 0.76rem; font-weight: 800;
+  width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Page hero ── */
+.page-hero { padding: 120px 5% 50px; text-align: center; position: relative; overflow: hidden; }
+.hero-tag {
+  display: inline-block; font-size: 0.73rem; font-weight: 700; letter-spacing: 0.13em;
+  text-transform: uppercase; padding: 5px 17px; border-radius: 50px; margin-bottom: 18px;
+  animation: fadeUp 0.7s ease both;
+}
+.page-hero h1 {
+  font-family: 'Playfair Display', serif; font-size: clamp(2.3rem, 5.5vw, 4.2rem);
+  color: var(--chocolate); line-height: 1.1; animation: fadeUp 0.8s ease 0.1s both;
+}
+.page-hero h1 em { font-style: italic; }
+.page-hero p {
+  color: var(--text-light); font-size: 1rem; max-width: 500px;
+  margin: 14px auto 0; line-height: 1.75; animation: fadeUp 0.9s ease 0.2s both;
+}
+
+/* ── Filter bar ── */
+.filter-bar { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; padding: 28px 5% 38px; }
+.filter-btn {
+  font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.84rem;
+  padding: 9px 22px; border-radius: 50px; border: 2px solid var(--light-gold);
+  background: var(--warm-white); color: var(--text-light); cursor: pointer; transition: all 0.22s;
+}
+.filter-btn:hover { border-color: var(--blush); color: var(--rose); }
+.filter-btn.active { background: var(--rose); color: #fff; border-color: var(--rose); }
+
+/* ── Products grid ── */
+.products-section { padding: 0 5% 120px; max-width: 1200px; margin: 0 auto; }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 22px; }
+
+/* ── Product card ── */
+.product-card {
+  background: var(--warm-white); border-radius: var(--radius-card);
+  overflow: hidden; border: 1px solid rgba(200,155,90,0.13);
+  box-shadow: var(--shadow-card); transition: transform 0.3s, box-shadow 0.3s;
+  display: flex; flex-direction: column; animation: fadeUp 0.6s ease both;
+}
+.product-card:hover { transform: translateY(-7px); box-shadow: var(--shadow-hover); }
+.product-card.hidden { display: none; }
+
+/* Card image area */
+.card-img-wrap {
+  height: 190px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.card-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.product-card:hover .card-img-wrap img { transform: scale(1.06); }
+.card-emoji-fallback { font-size: 4.5rem; }
+
+/* badges */
+.card-badge {
+  position: absolute; top: 12px; right: 12px;
+  font-size: 0.64rem; font-weight: 800; letter-spacing: 0.09em;
+  text-transform: uppercase; padding: 3px 11px; border-radius: 50px; color: #fff;
+}
+.badge-popular { background: var(--gold); }
+.badge-nuevo   { background: var(--rose); }
+.badge-fresco  { background: #43A047; }
+
+/* Card body */
+.card-body { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+.card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--chocolate); margin-bottom: 5px; }
+.card-body p  { font-size: 0.8rem; color: var(--text-light); line-height: 1.6; flex: 1; }
+
+.card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 15px; flex-wrap: wrap; gap: 10px; }
+.price { font-family: 'Playfair Display', serif; font-size: 1.08rem; color: var(--deep-rose); font-weight: 700; }
+.price small { font-family: 'Nunito', sans-serif; font-size: 0.68rem; color: var(--text-light); font-weight: 400; }
+
+/* Card action buttons */
+.card-actions { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+
+.btn-add-ancheta {
+  background: var(--cream); border: 2px solid var(--blush); color: var(--rose);
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.78rem;
+  padding: 7px 14px; border-radius: 50px; cursor: pointer;
+  transition: all 0.2s; white-space: nowrap;
+}
+.btn-add-ancheta:hover { background: var(--rose); color: #fff; border-color: var(--rose); transform: scale(1.04); }
+
+.btn-buy-solo {
+  background: var(--chocolate); color: #fff;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.78rem;
+  padding: 7px 14px; border-radius: 50px; cursor: pointer;
+  border: none; transition: all 0.2s; white-space: nowrap; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.btn-buy-solo:hover { background: var(--teal); transform: scale(1.04); }
+
+/* Qty counter */
+.qty-control { display: none; align-items: center; gap: 5px; }
+.qty-control.visible { display: flex; }
+.qty-btn {
+  width: 27px; height: 27px; border-radius: 50%; border: 2px solid var(--blush);
+  background: none; color: var(--rose); font-size: 1rem; font-weight: 800;
+  cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+  font-family: 'Nunito', sans-serif;
+}
+.qty-btn:hover { background: var(--rose); color: #fff; border-color: var(--rose); }
+.qty-num { font-weight: 800; font-size: 0.93rem; min-width: 20px; text-align: center; color: var(--chocolate); }
+
+/* ── Empty state ── */
+.empty-state { text-align: center; padding: 60px 20px; display: none; }
+.empty-state .ei { font-size: 3.5rem; margin-bottom: 14px; }
+.empty-state h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--chocolate); }
+.empty-state p { color: var(--text-light); margin-top: 8px; font-size: 0.9rem; }
+
+/* ── Footer ── */
+footer { background: var(--chocolate); color: rgba(255,255,255,0.65); text-align: center; padding: 38px 5%; font-size: 0.83rem; }
+footer .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--light-gold); display: block; margin-bottom: 10px; }
+footer a { color: var(--blush); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--warm-white); flex-direction: column; padding: 16px;
+    border-bottom: 1px solid var(--light-gold); box-shadow: 0 10px 30px rgba(61,28,14,0.1); gap: 4px;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links li a, .nav-links li button { width: 100%; text-align: left; border-radius: 12px; }
+  .dropdown-menu { position: static; transform: none; box-shadow: none; border-radius: 12px; margin-top: 4px; }
+  #anchetaBadge { bottom: 16px; right: 16px; padding: 11px 17px; font-size: 0.84rem; }
+  .card-actions { flex-direction: column; width: 100%; }
+  .btn-add-ancheta, .btn-buy-solo { width: 100%; justify-content: center; }
+}
