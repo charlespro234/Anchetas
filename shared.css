@@ -186,7 +186,7 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(61,28,14,0.1); }
 .price small { font-family: 'Nunito', sans-serif; font-size: 0.68rem; color: var(--text-light); font-weight: 400; }
 
 /* Card action buttons */
-.card-actions { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.card-actions { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 
 .btn-add-ancheta {
   background: var(--cream); border: 2px solid var(--blush); color: var(--rose);
@@ -243,5 +243,6 @@ footer a:hover { text-decoration: underline; }
   .dropdown-menu { position: static; transform: none; box-shadow: none; border-radius: 12px; margin-top: 4px; }
   #anchetaBadge { bottom: 16px; right: 16px; padding: 11px 17px; font-size: 0.84rem; }
   .card-actions { flex-direction: column; width: 100%; }
-  .btn-add-ancheta, .btn-buy-solo { width: 100%; justify-content: center; }
+  .btn-add-ancheta, .btn-add-rapido, .btn-buy-solo { width: 100%; justify-content: center; }
+  .qty-control, .rqty-control { width: 100%; justify-content: center; }
 }
