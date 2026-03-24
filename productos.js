@@ -37,7 +37,7 @@ const CATALOGO = [
     id: "p1",
     seccion: "postres",           // "postres" o "fria"
     category: "tortas",           // sub-categoría para filtros
-    name: "Torta de Chocolate",
+    name: "Cheescake",
     description: "Bizcocho húmedo de cacao con ganache de chocolate negro y decoración artesanal.",
     price: 35000,
     unit: "porción",              // texto que aparece junto al precio
@@ -48,185 +48,65 @@ const CATALOGO = [
   },
   {
     id: "p2",
-    seccion: "postres",
-    category: "tortas",
-    name: "Torta Red Velvet prueba",
-    description: "Terciopelo rojo con crema de queso y frosting de mantequilla, perfecta para celebraciones.",
-    price: 38000,
-    unit: "porción",
-    emoji: "🍰",
-    image: "imagenes/descarga.jpg",
-    badge: "nuevo",
+    seccion: "postres",           // "postres" o "fria"
+    category: "tortas",           // sub-categoría para filtros
+    name: "Flan",
+    description: "Bizcocho húmedo de cacao con ganache de chocolate negro y decoración artesanal.",
+    price: 35000,
+    unit: "porción",              // texto que aparece junto al precio
+    emoji: "🎂",                  // se muestra si no hay imagen
+    image: "",                    // ej: "imagenes/torta-chocolate.jpg"
+    badge: "popular",             // "popular" | "nuevo" | "fresco" | ""
     active: true
   },
   {
     id: "p3",
-    seccion: "postres",
-    category: "tortas",
-    name: "Cupcakes x6",
-    description: "Seis cupcakes esponjosos con buttercream en colores pastel, personalizables con mensaje.",
-    price: 22000,
-    unit: "caja x6",
-    emoji: "🧁",
-    image: "",
-    badge: "",
+    seccion: "postres",           // "postres" o "fria"
+    category: "tortas",           // sub-categoría para filtros
+    name: "Torta de Chocolate",
+    description: "Bizcocho húmedo de cacao con ganache de chocolate negro y decoración artesanal.",
+    price: 35000,
+    unit: "porción",              // texto que aparece junto al precio
+    emoji: "🎂",                  // se muestra si no hay imagen
+    image: "",                    // ej: "imagenes/torta-chocolate.jpg"
+    badge: "popular",             // "popular" | "nuevo" | "fresco" | ""
     active: true
   },
   {
-    id: "p4",
-    seccion: "postres",
-    category: "chocolates",
-    name: "Tableta Artesanal",
-    description: "Chocolate de 70% cacao con relleno de maracuyá, frutos rojos o caramelo salado.",
-    price: 18000,
-    unit: "unidad",
-    emoji: "🍫",
-    image: "",
-    badge: "popular",
-    active: true
+    
   },
   {
-    id: "p5",
-    seccion: "postres",
-    category: "chocolates",
-    name: "Bombones x12",
-    description: "Docena de bombones de chocolate belga con rellenos variados: ron, café, menta y frutas.",
-    price: 25000,
-    unit: "caja",
-    emoji: "🫶",
-    image: "",
-    badge: "nuevo",
-    active: true
+    
   },
   {
-    id: "p6",
-    seccion: "postres",
-    category: "chocolates",
-    name: "Fresas con Chocolate",
-    description: "Fresas frescas bañadas en chocolate oscuro o blanco, decoradas con toppings especiales.",
-    price: 20000,
-    unit: "x6",
-    emoji: "🍓",
-    image: "",
-    badge: "",
-    active: true
+    
   },
   {
-    id: "p7",
-    seccion: "postres",
-    category: "galletas",
-    name: "Brownies x4",
-    description: "Brownies de chocolate fondant con nueces o chips de chocolate, horneados al momento.",
-    price: 16000,
-    unit: "caja",
-    emoji: "🟫",
-    image: "",
-    badge: "popular",
-    active: true
+    
   },
   {
-    id: "p8",
-    seccion: "postres",
-    category: "galletas",
-    name: "Galletas Decoradas x6",
-    description: "Galletas de mantequilla con glaseado real y diseños personalizados según la ocasión.",
-    price: 19000,
-    unit: "x6",
-    emoji: "🍪",
-    image: "",
-    badge: "",
-    active: true
+    
   },
   {
-    id: "p9",
-    seccion: "postres",
-    category: "galletas",
-    name: "Macarons x6",
-    description: "Macarons parisinos en sabores de temporada: vainilla, fresa, pistacho, lavanda y café.",
-    price: 28000,
-    unit: "caja",
-    emoji: "🫐",
-    image: "",
-    badge: "nuevo",
-    active: true
+    
   },
   {
-    id: "p10",
-    seccion: "postres",
-    category: "frutas-dulces",
-    name: "Paletas de Gelatina",
-    description: "Paletas artesanales de gelatina con frutas naturales, sin conservantes. Colores vibrantes.",
-    price: 12000,
-    unit: "x4",
-    emoji: "🍭",
-    image: "",
-    badge: "",
-    active: true
+    
   },
   {
-    id: "p11",
-    seccion: "postres",
-    category: "frutas-dulces",
-    name: "Caja de Frutas Bañadas",
-    description: "Selección de frutas de temporada bañadas en chocolate blanco y oscuro con toppings.",
-    price: 30000,
-    unit: "caja",
-    emoji: "🍇",
-    image: "",
-    badge: "popular",
-    active: true
+    
   },
   {
-    id: "p12",
-    seccion: "postres",
-    category: "frutas-dulces",
-    name: "Algodón de Azúcar",
-    description: "Algodón artesanal en sabores especiales: fresa, mora, mango y vainilla. Super esponjoso.",
-    price: 10000,
-    unit: "unidad",
-    emoji: "☁️",
-    image: "",
-    badge: "",
-    active: true
+    
   },
   {
-    id: "p13",
-    seccion: "postres",
-    category: "especiales",
-    name: "Cheesecake New York",
-    description: "Cheesecake cremoso estilo Nueva York con coulis de frutos rojos o caramelo. Porción generosa.",
-    price: 42000,
-    unit: "porción",
-    emoji: "🥮",
-    image: "",
-    badge: "nuevo",
-    active: true
+    
   },
   {
-    id: "p14",
-    seccion: "postres",
-    category: "especiales",
-    name: "Tiramisú Artesanal",
-    description: "Postre italiano clásico con mascarpone, café espresso y cacao en polvo. Receta tradicional.",
-    price: 36000,
-    unit: "porción",
-    emoji: "☕",
-    image: "",
-    badge: "",
-    active: true
+    
   },
   {
-    id: "p15",
-    seccion: "postres",
-    category: "especiales",
-    name: "Caja Sorpresa Postres",
-    description: "Selección sorpresa de 5 postres artesanales del día, empacados con amor en caja decorada.",
-    price: 55000,
-    unit: "caja",
-    emoji: "🎁",
-    image: "",
-    badge: "popular",
-    active: true
+   
   },
 
   // ──────────────────────────────────────────────
