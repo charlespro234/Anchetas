@@ -40,8 +40,8 @@
 
     /* ── Layout ── */
     .builder-wrap {
-      display:grid; grid-template-columns:1fr 390px; gap:28px;
-      padding:0 5% 100px; max-width:1200px; margin:0 auto;
+      display:grid; grid-template-columns:1fr 400px; gap:28px;
+      padding:0 5% 100px; max-width:1240px; margin:0 auto;
     }
 
     /* ── Left panel ── */
@@ -69,7 +69,7 @@
     .mini-filter.active { background:var(--rose); color:#fff; border-color:var(--rose); }
 
     .mini-grid {
-      display:grid; grid-template-columns:repeat(auto-fill, minmax(170px,1fr)); gap:12px;
+      display:grid; grid-template-columns:repeat(auto-fill, minmax(165px,1fr)); gap:12px;
     }
     .mini-card {
       background:var(--warm-white); border-radius:16px; padding:14px 14px 16px;
@@ -79,14 +79,12 @@
     }
     .mini-card:hover { transform:translateY(-4px); box-shadow:0 10px 26px rgba(61,28,14,0.1); }
     .mini-card.hidden { display:none; }
-
     .mini-img-wrap {
       width:70px; height:70px; border-radius:12px; overflow:hidden;
       display:flex; align-items:center; justify-content:center; flex-shrink:0;
     }
     .mini-img-wrap img { width:100%; height:100%; object-fit:cover; }
     .mini-emoji { font-size:2.2rem; }
-
     .mini-name  { font-family:'Playfair Display',serif; font-size:0.82rem; color:var(--chocolate); line-height:1.3; }
     .mini-price { font-size:0.76rem; color:var(--rose); font-weight:700; }
     .mini-add {
@@ -95,20 +93,125 @@
       cursor:pointer; transition:all 0.2s; width:100%; font-family:'Nunito',sans-serif;
     }
     .mini-add:hover { background:var(--rose); color:#fff; border-color:var(--rose); }
-
     .hidden-panel { display:none; }
+
+    /* ══════════════════════════════════════════
+       SECCIÓN DECORACIÓN
+    ══════════════════════════════════════════ */
+    .deco-section {
+      background:var(--warm-white); border-radius:20px; padding:22px 20px 24px;
+      border:1px solid rgba(200,155,90,0.2); box-shadow:0 4px 20px rgba(61,28,14,0.06);
+      margin-top:28px;
+    }
+    .deco-section-title {
+      font-family:'Playfair Display',serif; font-size:1.15rem; color:var(--chocolate);
+      margin-bottom:4px; display:flex; align-items:center; gap:9px;
+    }
+    .deco-section-title span { font-size:1.3rem; }
+    .deco-section-sub { font-size:0.8rem; color:var(--text-light); margin-bottom:20px; }
+
+    /* ─ Bloque de opción de deco ─ */
+    .deco-block { margin-bottom:20px; }
+    .deco-block:last-child { margin-bottom:0; }
+    .deco-block-label {
+      font-size:0.72rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;
+      color:var(--text-light); margin-bottom:10px; display:block;
+    }
+
+    /* Opciones tipo tarjeta seleccionable */
+    .deco-options { display:flex; gap:9px; flex-wrap:wrap; }
+    .deco-opt {
+      flex:1; min-width:80px; max-width:140px;
+      background:var(--cream); border:2px solid var(--light-gold); border-radius:14px;
+      padding:12px 10px; text-align:center; cursor:pointer; transition:all 0.22s;
+      display:flex; flex-direction:column; align-items:center; gap:5px;
+      font-family:'Nunito',sans-serif; position:relative; user-select:none;
+    }
+    .deco-opt:hover { border-color:var(--blush); background:var(--warm-white); }
+    .deco-opt.selected { border-color:var(--rose); background:#fff0f3; box-shadow:0 0 0 3px rgba(217,96,122,0.12); }
+    .deco-opt .do-icon { font-size:1.8rem; line-height:1; }
+    .deco-opt .do-name { font-size:0.78rem; font-weight:700; color:var(--chocolate); }
+    .deco-opt .do-price { font-size:0.7rem; color:var(--rose); font-weight:800; }
+    .deco-opt .do-desc  { font-size:0.65rem; color:var(--text-light); line-height:1.3; }
+    .deco-opt .do-check {
+      display:none; position:absolute; top:6px; right:8px;
+      width:16px; height:16px; border-radius:50%; background:var(--rose);
+      color:#fff; font-size:0.55rem; align-items:center; justify-content:center;
+      font-weight:900;
+    }
+    .deco-opt.selected .do-check { display:flex; }
+
+    /* Ninguna */
+    .deco-opt.none-opt .do-icon { font-size:1.3rem; color:var(--text-light); }
+    .deco-opt.none-opt .do-name { color:var(--text-light); }
+    .deco-opt.none-opt.selected { border-color:var(--light-gold); background:var(--cream); box-shadow:none; }
+    .deco-opt.none-opt.selected .do-check { background:var(--text-light); }
+
+    /* Toggle switch para flores/globo */
+    .deco-toggle-row {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:11px 14px; background:var(--cream); border-radius:12px;
+      border:2px solid var(--light-gold); cursor:pointer; transition:all 0.2s;
+      margin-bottom:10px; user-select:none;
+    }
+    .deco-toggle-row:hover { border-color:var(--blush); }
+    .deco-toggle-row.active { border-color:var(--rose); background:#fff0f3; }
+    .dtr-left { display:flex; align-items:center; gap:10px; }
+    .dtr-icon { font-size:1.5rem; }
+    .dtr-info .dtr-name { font-size:0.85rem; font-weight:700; color:var(--chocolate); }
+    .dtr-info .dtr-price { font-size:0.72rem; color:var(--rose); font-weight:700; margin-top:1px; }
+    .toggle-pill {
+      width:40px; height:22px; border-radius:50px; background:var(--light-gold);
+      position:relative; transition:background 0.25s; flex-shrink:0;
+    }
+    .toggle-pill::after {
+      content:''; position:absolute; top:3px; left:3px;
+      width:16px; height:16px; border-radius:50%; background:#fff;
+      transition:transform 0.25s; box-shadow:0 1px 4px rgba(0,0,0,0.15);
+    }
+    .deco-toggle-row.active .toggle-pill { background:var(--rose); }
+    .deco-toggle-row.active .toggle-pill::after { transform:translateX(18px); }
+
+    /* Sub-opciones que aparecen al activar toggle */
+    .deco-subopts { display:none; margin-top:2px; animation:fadeUp 0.2s ease both; }
+    .deco-subopts.visible { display:block; }
+
+    /* Campo mensaje globo */
+    .globo-msg-wrap { margin-top:10px; }
+    .globo-msg-wrap label { display:block; font-size:0.72rem; font-weight:800; letter-spacing:0.07em; text-transform:uppercase; color:var(--text-light); margin-bottom:6px; }
+    .globo-msg-input {
+      width:100%; padding:9px 13px; border-radius:11px;
+      border:1.5px solid var(--light-gold); background:var(--cream);
+      font-family:'Nunito',sans-serif; font-size:0.83rem; color:var(--text);
+      transition:border-color 0.2s; resize:none;
+    }
+    .globo-msg-input:focus { outline:none; border-color:var(--rose); }
+    .globo-char { font-size:0.68rem; color:var(--text-light); text-align:right; margin-top:3px; }
+
+    /* Color picker globo */
+    .color-pick-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .color-swatch {
+      width:32px; height:32px; border-radius:50%; cursor:pointer;
+      border:3px solid transparent; transition:transform 0.18s, border-color 0.18s;
+      position:relative;
+    }
+    .color-swatch:hover { transform:scale(1.15); }
+    .color-swatch.selected { border-color:var(--chocolate); transform:scale(1.15); }
+    .color-swatch.selected::after {
+      content:'✓'; position:absolute; inset:0; display:flex; align-items:center;
+      justify-content:center; font-size:0.7rem; font-weight:900; color:#fff;
+      text-shadow:0 1px 3px rgba(0,0,0,0.5);
+    }
 
     /* ── Cart panel ── */
     .cart-panel {
       position:sticky; top:88px; height:fit-content;
       background:var(--warm-white); border-radius:24px; padding:26px 22px;
       border:1px solid rgba(200,155,90,0.2); box-shadow:0 8px 40px rgba(61,28,14,0.08);
-      max-height: calc(100vh - 110px);
-      overflow-y: auto;
+      max-height:calc(100vh - 110px); overflow-y:auto;
     }
-    .cart-panel::-webkit-scrollbar { width: 5px; }
-    .cart-panel::-webkit-scrollbar-thumb { background: var(--light-gold); border-radius: 10px; }
-
+    .cart-panel::-webkit-scrollbar { width:5px; }
+    .cart-panel::-webkit-scrollbar-thumb { background:var(--light-gold); border-radius:10px; }
     .cart-panel h3 {
       font-family:'Playfair Display',serif; font-size:1.25rem; color:var(--chocolate);
       margin-bottom:5px; display:flex; align-items:center; justify-content:space-between;
@@ -119,13 +222,11 @@
     }
     .cart-subtitle { font-size:0.78rem; color:var(--text-light); margin-bottom:18px; }
 
-    /* Empty */
     .cart-empty { text-align:center; padding:28px 0; }
     .cart-empty .ei { font-size:2.8rem; margin-bottom:10px; }
     .cart-empty p { color:var(--text-light); font-size:0.82rem; line-height:1.7; }
     .cart-empty a { color:var(--rose); font-weight:700; text-decoration:none; }
 
-    /* Items */
     .cart-items { display:flex; flex-direction:column; gap:9px; margin-bottom:16px; }
     .cart-item {
       display:flex; align-items:center; gap:10px; padding:9px 12px;
@@ -133,8 +234,7 @@
     }
     .ci-thumb {
       width:38px; height:38px; border-radius:9px; overflow:hidden; flex-shrink:0;
-      display:flex; align-items:center; justify-content:center;
-      background:var(--light-gold);
+      display:flex; align-items:center; justify-content:center; background:var(--light-gold);
     }
     .ci-thumb img  { width:100%; height:100%; object-fit:cover; }
     .ci-thumb span { font-size:1.5rem; }
@@ -151,13 +251,29 @@
     .ci-btn:hover { background:var(--rose); color:#fff; border-color:var(--rose); }
     .ci-qty { font-size:0.82rem; font-weight:800; min-width:18px; text-align:center; }
 
-    /* Totals */
+    /* Resumen decoración en carrito */
+    .deco-summary {
+      background:var(--cream); border-radius:13px; padding:11px 14px;
+      border:1px solid rgba(200,155,90,0.2); margin-bottom:12px; display:none;
+    }
+    .deco-summary.visible { display:block; }
+    .deco-summary-title {
+      font-size:0.75rem; font-weight:800; text-transform:uppercase; letter-spacing:0.08em;
+      color:var(--text-light); margin-bottom:8px;
+    }
+    .deco-sum-row {
+      display:flex; justify-content:space-between; align-items:center;
+      font-size:0.78rem; color:var(--chocolate); margin-bottom:4px;
+    }
+    .deco-sum-row:last-child { margin-bottom:0; }
+    .deco-sum-row span:first-child { color:var(--text-light); }
+    .deco-sum-row span:last-child { font-weight:700; }
+
     .cart-divider { height:1px; background:var(--light-gold); margin:14px 0; }
     .cart-total { display:flex; justify-content:space-between; font-size:0.86rem; color:var(--text-light); margin-bottom:5px; }
     .cart-total.grand { font-size:1.1rem; font-family:'Playfair Display',serif; color:var(--chocolate); }
     .cart-total.grand span:last-child { color:var(--rose); }
 
-    /* Message */
     .message-field { margin:16px 0; }
     .message-field label { display:block; font-size:0.78rem; font-weight:700; color:var(--text-light); margin-bottom:6px; letter-spacing:0.04em; }
     .message-field textarea {
@@ -168,7 +284,6 @@
     }
     .message-field textarea:focus { outline:none; border-color:var(--rose); }
 
-    /* Buttons */
     .btn-order {
       width:100%; padding:13px; border-radius:50px;
       background:var(--rose); color:#fff; font-family:'Nunito',sans-serif;
@@ -185,10 +300,12 @@
     }
     .btn-clear:hover { border-color:var(--rose); color:var(--rose); }
 
-    /* Responsive */
     @media (max-width:900px) {
       .builder-wrap { grid-template-columns:1fr; }
       .cart-panel { position:static; max-height:none; }
+    }
+    @media (max-width:480px) {
+      .deco-opt { min-width:70px; }
     }
   </style>
 </head>
@@ -220,10 +337,9 @@
 <div class="page-hero">
   <span class="hero-tag">✨ Constructor de ancheta</span>
   <h1>Arma tu <em>ancheta perfecta</em></h1>
-  <p>Elige de postres y comida fría. Cuando estés listo, envíanos el pedido por WhatsApp.</p>
+  <p>Elige productos, personaliza la decoración y envíanos el pedido por WhatsApp.</p>
 </div>
 
-<!-- Steps -->
 <div class="steps-bar">
   <div class="step done">
     <div class="step-dot">✓</div>
@@ -239,11 +355,11 @@
   </div>
 </div>
 
-<!-- Builder layout -->
 <div class="builder-wrap">
 
-  <!-- LEFT: mini catalog -->
+  <!-- ── LEFT: catálogo + decoración ── -->
   <div class="catalog-panel">
+
     <h2>Agrega productos</h2>
     <p class="sub">Selecciona los productos que quieres incluir en tu ancheta.</p>
 
@@ -252,46 +368,165 @@
       <button class="source-tab"        id="tab-fria"    onclick="showSection('fria',this)">🧃 Comida Fría</button>
     </div>
 
-    <!-- Postres mini section -->
     <div id="section-postres">
       <div class="mini-filter-bar" id="mf-postres"></div>
       <div class="mini-grid" id="mg-postres"></div>
     </div>
-
-    <!-- Comida fría mini section -->
     <div id="section-fria" class="hidden-panel">
       <div class="mini-filter-bar" id="mf-fria"></div>
       <div class="mini-grid" id="mg-fria"></div>
     </div>
-  </div>
 
-  <!-- RIGHT: cart -->
+    <!-- ══════════════════════════════════════════
+         DECORACIÓN
+    ══════════════════════════════════════════ -->
+    <div class="deco-section">
+      <div class="deco-section-title"><span>🎀</span> Personaliza la decoración</div>
+      <p class="deco-section-sub">Elige el empaque y los extras para hacer tu ancheta especial.</p>
+
+      <!-- CANASTA -->
+      <div class="deco-block">
+        <span class="deco-block-label">🧺 Canasta</span>
+        <div class="deco-options" id="canasta-opts">
+          <div class="deco-opt none-opt selected" data-key="canasta" data-val="ninguna" data-price="0" onclick="selectDecoOpt(this)">
+            <div class="do-check">✓</div>
+            <div class="do-icon">🚫</div>
+            <div class="do-name">Sin canasta</div>
+            <div class="do-price">Incluido</div>
+          </div>
+          <div class="deco-opt" data-key="canasta" data-val="pequeña" data-price="8000" onclick="selectDecoOpt(this)">
+            <div class="do-check">✓</div>
+            <div class="do-icon">🧺</div>
+            <div class="do-name">Pequeña</div>
+            <div class="do-price">+$8.000</div>
+            <div class="do-desc">Ideal para 3–5 productos</div>
+          </div>
+          <div class="deco-opt" data-key="canasta" data-val="mediana" data-price="14000" onclick="selectDecoOpt(this)">
+            <div class="do-check">✓</div>
+            <div class="do-icon">🧺</div>
+            <div class="do-name">Mediana</div>
+            <div class="do-price">+$14.000</div>
+            <div class="do-desc">Ideal para 6–9 productos</div>
+          </div>
+          <div class="deco-opt" data-key="canasta" data-val="grande" data-price="22000" onclick="selectDecoOpt(this)">
+            <div class="do-check">✓</div>
+            <div class="do-icon">🧺</div>
+            <div class="do-name">Grande</div>
+            <div class="do-price">+$22.000</div>
+            <div class="do-desc">Para 10 o más productos</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FLORES -->
+      <div class="deco-block">
+        <span class="deco-block-label">🌸 Flores</span>
+        <div class="deco-toggle-row" id="flores-toggle" onclick="toggleDecoExtra('flores')">
+          <div class="dtr-left">
+            <div class="dtr-icon">💐</div>
+            <div class="dtr-info">
+              <div class="dtr-name">Agregar flores</div>
+              <div class="dtr-price">+$12.000</div>
+            </div>
+          </div>
+          <div class="toggle-pill"></div>
+        </div>
+        <div class="deco-subopts" id="flores-subopts">
+          <div class="deco-options">
+            <div class="deco-opt selected" data-key="flores-tipo" data-val="rosa" data-price="0" onclick="selectDecoOpt(this)">
+              <div class="do-check">✓</div>
+              <div class="do-icon">🌹</div>
+              <div class="do-name">Rosas</div>
+              <div class="do-desc">Clásico y romántico</div>
+            </div>
+            <div class="deco-opt" data-key="flores-tipo" data-val="girasol" data-price="0" onclick="selectDecoOpt(this)">
+              <div class="do-check">✓</div>
+              <div class="do-icon">🌻</div>
+              <div class="do-name">Girasoles</div>
+              <div class="do-desc">Alegre y vibrante</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GLOBO -->
+      <div class="deco-block">
+        <span class="deco-block-label">🎈 Globo</span>
+        <div class="deco-toggle-row" id="globo-toggle" onclick="toggleDecoExtra('globo')">
+          <div class="dtr-left">
+            <div class="dtr-icon">🎈</div>
+            <div class="dtr-info">
+              <div class="dtr-name">Agregar globo</div>
+              <div class="dtr-price">+$6.000</div>
+            </div>
+          </div>
+          <div class="toggle-pill"></div>
+        </div>
+        <div class="deco-subopts" id="globo-subopts">
+          <!-- Color del globo -->
+          <div style="margin-bottom:10px;">
+            <div class="deco-block-label" style="margin-bottom:8px;">Color del globo</div>
+            <div class="color-pick-row" id="globo-colores">
+              <div class="color-swatch selected" data-color="Rojo"      style="background:#E53935;" onclick="selectGloboColor(this)" title="Rojo"></div>
+              <div class="color-swatch" data-color="Rosa"       style="background:#E91E8C;" onclick="selectGloboColor(this)" title="Rosa"></div>
+              <div class="color-swatch" data-color="Fucsia"     style="background:#FF4081;" onclick="selectGloboColor(this)" title="Fucsia"></div>
+              <div class="color-swatch" data-color="Naranja"    style="background:#FF6D00;" onclick="selectGloboColor(this)" title="Naranja"></div>
+              <div class="color-swatch" data-color="Amarillo"   style="background:#FDD835;" onclick="selectGloboColor(this)" title="Amarillo"></div>
+              <div class="color-swatch" data-color="Verde"      style="background:#43A047;" onclick="selectGloboColor(this)" title="Verde"></div>
+              <div class="color-swatch" data-color="Azul"       style="background:#1E88E5;" onclick="selectGloboColor(this)" title="Azul"></div>
+              <div class="color-swatch" data-color="Morado"     style="background:#8E24AA;" onclick="selectGloboColor(this)" title="Morado"></div>
+              <div class="color-swatch" data-color="Blanco"     style="background:#F5F5F5;border:2px solid #ddd;" onclick="selectGloboColor(this)" title="Blanco"></div>
+              <div class="color-swatch" data-color="Dorado"     style="background:linear-gradient(135deg,#FFD700,#C89B5A);" onclick="selectGloboColor(this)" title="Dorado"></div>
+            </div>
+          </div>
+          <!-- Mensaje del globo -->
+          <div class="globo-msg-wrap">
+            <label>Mensaje para el globo <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional, máx. 40 caracteres)</span></label>
+            <input type="text" class="globo-msg-input" id="globo-msg" maxlength="40"
+              placeholder='Ej: "¡Feliz cumpleaños!"'
+              oninput="updateGloboChar(); updateWALink()"/>
+            <div class="globo-char"><span id="globo-char-count">0</span>/40</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /deco-section -->
+  </div><!-- /catalog-panel -->
+
+  <!-- ── RIGHT: resumen + pedido ── -->
   <div class="cart-panel">
     <h3>
       Tu Ancheta 🎁
       <span class="cart-count-badge" id="cartBadge">0</span>
     </h3>
-    <p class="cart-subtitle">Productos seleccionados para tu regalo</p>
+    <p class="cart-subtitle">Productos y decoración seleccionados</p>
 
     <div id="cartEmpty" class="cart-empty">
       <div class="ei">🛒</div>
       <p>Tu ancheta está vacía.<br>
-        Agrega productos desde el panel izquierdo,<br>
+        Agrega productos desde el panel,<br>
         o explora <a href="postres.html">postres</a> y <a href="comida-fria.html">comida fría</a>.
       </p>
     </div>
 
     <div id="cartItemsEl" class="cart-items" style="display:none"></div>
 
+    <!-- Resumen decoración -->
+    <div class="deco-summary" id="decoSummary">
+      <div class="deco-summary-title">🎀 Decoración seleccionada</div>
+      <div id="decoSummaryRows"></div>
+    </div>
+
     <div id="cartFooter" style="display:none">
       <div class="cart-divider"></div>
-      <div class="cart-total"><span>Subtotal</span><span id="subtotal">$0</span></div>
-      <div class="cart-total"><span>Empaque & Decoración</span><span id="empaqueAmt">$5.000</span></div>
-      <div class="cart-total grand"><span>Total estimado</span><span id="grandTotal">$5.000</span></div>
+      <div class="cart-total"><span>Subtotal productos</span><span id="subtotal">$0</span></div>
+      <div class="cart-total" id="decoTotalRow" style="display:none"><span>🎀 Decoración</span><span id="decoAmt">$0</span></div>
+      <div class="cart-total grand"><span>Total estimado</span><span id="grandTotal">$0</span></div>
 
       <div class="message-field">
         <label>💌 Mensaje para incluir en la ancheta (opcional)</label>
-        <textarea id="msgField" placeholder="Ej: ¡Feliz cumpleaños amor! Con todo mi cariño 🌹"></textarea>
+        <textarea id="msgField" placeholder="Ej: ¡Feliz cumpleaños amor! Con todo mi cariño 🌹"
+          oninput="updateWALink()"></textarea>
       </div>
 
       <a id="btnOrder" href="#" class="btn-order" target="_blank" rel="noopener">
@@ -301,7 +536,8 @@
       <button class="btn-clear" onclick="clearCart()">🗑️ Vaciar ancheta</button>
     </div>
   </div>
-</div>
+
+</div><!-- /builder-wrap -->
 
 <div id="toast"></div>
 
@@ -312,10 +548,105 @@
 
 <script src="productos.js"></script>
 <script>
-  // ── Cart ──────────────────────────────────────────────
+
+  // ════════════════════════════════════════════════
+  //  ESTADO DE DECORACIÓN
+  // ════════════════════════════════════════════════
+  const DECO = {
+    canasta:    { val: 'ninguna', price: 0 },
+    flores:     { active: false, tipo: 'rosa',    price: 12000 },
+    globo:      { active: false, color: 'Rojo',   price: 6000, msg: '' }
+  };
+
+  function getDecoTotal() {
+    let t = DECO.canasta.price;
+    if (DECO.flores.active) t += DECO.flores.price;
+    if (DECO.globo.active)  t += DECO.globo.price;
+    return t;
+  }
+
+  // ── Seleccionar opción de tarjeta ──────────────
+  function selectDecoOpt(el) {
+    const key   = el.dataset.key;
+    const val   = el.dataset.val;
+    const price = parseInt(el.dataset.price) || 0;
+
+    // deselect siblings with same key
+    document.querySelectorAll('[data-key="' + key + '"]').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+
+    if (key === 'canasta') {
+      DECO.canasta.val   = val;
+      DECO.canasta.price = price;
+    } else if (key === 'flores-tipo') {
+      DECO.flores.tipo = val;
+    }
+
+    renderDecoSummary();
+    renderCart();
+  }
+
+  // ── Toggle extras (flores / globo) ────────────
+  function toggleDecoExtra(which) {
+    DECO[which].active = !DECO[which].active;
+    const toggleRow = document.getElementById(which + '-toggle');
+    const subOpts   = document.getElementById(which + '-subopts');
+    toggleRow.classList.toggle('active', DECO[which].active);
+    subOpts.classList.toggle('visible', DECO[which].active);
+    renderDecoSummary();
+    renderCart();
+  }
+
+  // ── Color globo ────────────────────────────────
+  function selectGloboColor(el) {
+    document.querySelectorAll('#globo-colores .color-swatch').forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+    DECO.globo.color = el.dataset.color;
+    renderDecoSummary();
+    updateWALink();
+  }
+
+  // ── Contador caracteres globo ──────────────────
+  function updateGloboChar() {
+    const input = document.getElementById('globo-msg');
+    DECO.globo.msg = input.value;
+    document.getElementById('globo-char-count').textContent = input.value.length;
+  }
+
+  // ── Render resumen decoración en carrito ───────
+  function renderDecoSummary() {
+    const el = document.getElementById('decoSummaryRows');
+    const rows = [];
+
+    if (DECO.canasta.val !== 'ninguna') {
+      const labels = { pequeña:'Pequeña (+$8.000)', mediana:'Mediana (+$14.000)', grande:'Grande (+$22.000)' };
+      rows.push(['🧺 Canasta', labels[DECO.canasta.val] || DECO.canasta.val]);
+    }
+    if (DECO.flores.active) {
+      rows.push(['🌸 Flores', (DECO.flores.tipo === 'rosa' ? '🌹 Rosas' : '🌻 Girasoles') + ' (+$12.000)']);
+    }
+    if (DECO.globo.active) {
+      let g = '🎈 Color ' + DECO.globo.color + ' (+$6.000)';
+      if (DECO.globo.msg.trim()) g += '\n   💬 "' + DECO.globo.msg.trim() + '"';
+      rows.push(['🎈 Globo', g]);
+    }
+
+    const summaryEl = document.getElementById('decoSummary');
+    if (rows.length === 0) {
+      summaryEl.classList.remove('visible');
+      return;
+    }
+    summaryEl.classList.add('visible');
+    el.innerHTML = rows.map(r =>
+      '<div class="deco-sum-row"><span>' + r[0] + '</span><span style="text-align:right;max-width:180px;white-space:pre-line">' + r[1] + '</span></div>'
+    ).join('');
+  }
+
+  // ════════════════════════════════════════════════
+  //  CARRITO
+  // ════════════════════════════════════════════════
   function getCart() { try { return JSON.parse(localStorage.getItem('ancheta_cart')) || []; } catch { return []; } }
   function saveCart(c) { localStorage.setItem('ancheta_cart', JSON.stringify(c)); renderCart(); }
-
   function fmt(n) { return '$' + n.toLocaleString('es-CO'); }
 
   function addToCart(id) {
@@ -323,7 +654,8 @@
     if (!prod) return;
     let cart = getCart();
     const ex = cart.find(i => i.id === id);
-    if (ex) { ex.qty += 1; } else { cart.push({ id:prod.id, name:prod.name, emoji:prod.emoji, image:prod.image||'', price:prod.price, qty:1, seccion:prod.seccion }); }
+    if (ex) ex.qty += 1;
+    else cart.push({ id:prod.id, name:prod.name, emoji:prod.emoji, image:prod.image||'', price:prod.price, qty:1, seccion:prod.seccion });
     saveCart(cart);
     showToast('🎁 ' + prod.name + ' agregado');
   }
@@ -343,25 +675,32 @@
     renderCart();
   }
 
-  // ── Render cart ───────────────────────────────────────
   function renderCart() {
-    const cart    = getCart();
-    const total   = cart.reduce((s, i) => s + i.qty, 0);
-    const sub     = cart.reduce((s, i) => s + i.qty * i.price, 0);
-    const empaque = CONFIG.empaque;
+    const cart     = getCart();
+    const total    = cart.reduce((s, i) => s + i.qty, 0);
+    const sub      = cart.reduce((s, i) => s + i.qty * i.price, 0);
+    const decoAmt  = getDecoTotal();
+    const grand    = sub + decoAmt;
 
-    document.getElementById('cartBadge').textContent = total;
+    document.getElementById('cartBadge').textContent  = total;
     document.getElementById('cartEmpty').style.display    = cart.length === 0 ? 'block' : 'none';
     document.getElementById('cartItemsEl').style.display  = cart.length > 0  ? 'flex'  : 'none';
     document.getElementById('cartFooter').style.display   = cart.length > 0  ? 'block' : 'none';
 
-    // step 3
     document.getElementById('step3').classList.toggle('active', cart.length > 0);
 
     if (cart.length > 0) {
-      document.getElementById('subtotal').textContent   = fmt(sub);
-      document.getElementById('empaqueAmt').textContent = fmt(empaque);
-      document.getElementById('grandTotal').textContent = fmt(sub + empaque);
+      document.getElementById('subtotal').textContent  = fmt(sub);
+      document.getElementById('grandTotal').textContent = fmt(grand);
+
+      const decoRow = document.getElementById('decoTotalRow');
+      const decoAmtEl = document.getElementById('decoAmt');
+      if (decoAmt > 0) {
+        decoRow.style.display = 'flex';
+        decoAmtEl.textContent = fmt(decoAmt);
+      } else {
+        decoRow.style.display = 'none';
+      }
 
       const el = document.getElementById('cartItemsEl');
       el.innerHTML = '';
@@ -369,51 +708,78 @@
         const div = document.createElement('div');
         div.className = 'cart-item';
         const thumbHTML = item.image
-          ? `<img src="${item.image}" alt="${item.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span style="display:none">${item.emoji}</span>`
-          : `<span>${item.emoji}</span>`;
-        div.innerHTML = `
-          <div class="ci-thumb">${thumbHTML}</div>
-          <div class="ci-info">
-            <div class="ci-name">${item.name}</div>
-            <div class="ci-price">${fmt(item.price)} c/u · ${fmt(item.price * item.qty)}</div>
-          </div>
-          <div class="ci-controls">
-            <button class="ci-btn" onclick="changeCartQty('${item.id}',-1)">−</button>
-            <span class="ci-qty">${item.qty}</span>
-            <button class="ci-btn" onclick="changeCartQty('${item.id}',1)">+</button>
-          </div>`;
+          ? '<img src="' + item.image + '" alt="' + item.name + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><span style="display:none">' + item.emoji + '</span>'
+          : '<span>' + item.emoji + '</span>';
+        div.innerHTML =
+          '<div class="ci-thumb">' + thumbHTML + '</div>' +
+          '<div class="ci-info">' +
+            '<div class="ci-name">' + item.name + '</div>' +
+            '<div class="ci-price">' + fmt(item.price) + ' c/u · ' + fmt(item.price * item.qty) + '</div>' +
+          '</div>' +
+          '<div class="ci-controls">' +
+            '<button class="ci-btn" onclick="changeCartQty(\'' + item.id + '\',-1)">−</button>' +
+            '<span class="ci-qty">' + item.qty + '</span>' +
+            '<button class="ci-btn" onclick="changeCartQty(\'' + item.id + '\',1)">+</button>' +
+          '</div>';
         el.appendChild(div);
       });
+
       updateWALink(cart, sub);
     }
+
+    renderDecoSummary();
   }
 
-  function updateWALink(cart, sub) {
+  function updateWALink() {
+    const cart    = getCart();
+    const sub     = cart.reduce((s, i) => s + i.qty * i.price, 0);
+    const decoAmt = getDecoTotal();
+    const grand   = sub + decoAmt;
     const msg_field = document.getElementById('msgField');
-    const msg = msg_field ? msg_field.value : '';
-    let text = `🎁 *Pedido de Ancheta — ${CONFIG.nombre_negocio}*\n\n*Productos:*\n`;
-    cart.forEach(i => { text += `• ${i.emoji} ${i.name} x${i.qty} = ${fmt(i.price * i.qty)}\n`; });
-    text += `\n📦 Empaque & Decoración: ${fmt(CONFIG.empaque)}`;
-    text += `\n💰 *Total estimado: ${fmt(sub + CONFIG.empaque)}*`;
-    if (msg.trim()) text += `\n\n💌 *Mensaje para la ancheta:*\n"${msg.trim()}"`;
+    const msgExtra  = msg_field ? msg_field.value : '';
+
+    let text = '🎁 *Pedido de Ancheta — ' + CONFIG.nombre_negocio + '*\n\n';
+
+    if (cart.length > 0) {
+      text += '*📦 Productos:*\n';
+      cart.forEach(i => { text += '• ' + i.emoji + ' ' + i.name + ' x' + i.qty + ' = ' + fmt(i.price * i.qty) + '\n'; });
+    }
+
+    // Decoración
+    text += '\n*🎀 Decoración:*\n';
+    if (DECO.canasta.val !== 'ninguna') {
+      const labels = { pequeña:'Canasta pequeña', mediana:'Canasta mediana', grande:'Canasta grande' };
+      text += '• 🧺 ' + (labels[DECO.canasta.val] || DECO.canasta.val) + ' = ' + fmt(DECO.canasta.price) + '\n';
+    } else {
+      text += '• Sin canasta\n';
+    }
+    if (DECO.flores.active) {
+      text += '• ' + (DECO.flores.tipo === 'rosa' ? '🌹 Rosas' : '🌻 Girasoles') + ' = ' + fmt(DECO.flores.price) + '\n';
+    }
+    if (DECO.globo.active) {
+      text += '• 🎈 Globo ' + DECO.globo.color + ' = ' + fmt(DECO.globo.price);
+      if (DECO.globo.msg.trim()) text += ' · Mensaje: "' + DECO.globo.msg.trim() + '"';
+      text += '\n';
+    }
+    if (!DECO.flores.active && !DECO.globo.active && DECO.canasta.val === 'ninguna') {
+      text += '• Sin decoración adicional\n';
+    }
+
+    if (decoAmt > 0) text += '\n💐 Subtotal decoración: ' + fmt(decoAmt);
+    text += '\n💰 *Total estimado: ' + fmt(grand) + '*';
+    if (msgExtra.trim()) text += '\n\n💌 *Mensaje para la ancheta:*\n"' + msgExtra.trim() + '"';
     text += '\n\n¡Hola! Quisiera hacer este pedido 😊';
-    document.getElementById('btnOrder').href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(text);
+
+    const btn = document.getElementById('btnOrder');
+    if (btn) btn.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(text);
   }
 
-  document.addEventListener('input', e => {
-    if (e.target.id === 'msgField') {
-      const cart = getCart();
-      const sub  = cart.reduce((s, i) => s + i.qty * i.price, 0);
-      updateWALink(cart, sub);
-    }
-  });
-
-  // ── Build mini catalogs ───────────────────────────────
+  // ════════════════════════════════════════════════
+  //  MINI CATÁLOGO
+  // ════════════════════════════════════════════════
   const CAT_LABELS = {
-    // postres
     'tortas':'🎂 Tortas','chocolates':'🍫 Chocolates','galletas':'🍪 Galletas',
     'frutas-dulces':'🍓 Frutas dulces','especiales':'⭐ Especiales',
-    // fria
     'bebidas':'🥤 Bebidas','snacks':'🍿 Snacks','quesos':'🧀 Quesos',
     'frutas-frescas':'🍉 Frutas','saludables':'🥗 Saludables'
   };
@@ -423,7 +789,6 @@
     const filterBar = document.getElementById('mf-' + seccion);
     const grid = document.getElementById('mg-' + seccion);
 
-    // mini filters
     const btnAll = document.createElement('button');
     btnAll.className = 'mini-filter active'; btnAll.dataset.filter = 'all'; btnAll.textContent = '✨ Todos';
     filterBar.appendChild(btnAll);
@@ -447,18 +812,17 @@
       });
     });
 
-    // cards
     prods.forEach(prod => {
       const div = document.createElement('div');
       div.className = 'mini-card'; div.dataset.cat = prod.category;
       const thumbHTML = prod.image
-        ? `<img src="${prod.image}" alt="${prod.name}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mini-emoji" style="display:none">${prod.emoji}</span>`
-        : `<span class="mini-emoji">${prod.emoji}</span>`;
-      div.innerHTML = `
-        <div class="mini-img-wrap">${thumbHTML}</div>
-        <div class="mini-name">${prod.name}</div>
-        <div class="mini-price">${fmt(prod.price)} <small style="font-weight:400;color:var(--text-light)">/ ${prod.unit}</small></div>
-        <button class="mini-add" onclick="addToCart('${prod.id}')">+ Agregar</button>`;
+        ? '<img src="' + prod.image + '" alt="' + prod.name + '" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><span class="mini-emoji" style="display:none">' + prod.emoji + '</span>'
+        : '<span class="mini-emoji">' + prod.emoji + '</span>';
+      div.innerHTML =
+        '<div class="mini-img-wrap">' + thumbHTML + '</div>' +
+        '<div class="mini-name">' + prod.name + '</div>' +
+        '<div class="mini-price">' + fmt(prod.price) + ' <small style="font-weight:400;color:var(--text-light)">/ ' + prod.unit + '</small></div>' +
+        '<button class="mini-add" onclick="addToCart(\'' + prod.id + '\')">+ Agregar</button>';
       grid.appendChild(div);
     });
   }
@@ -477,17 +841,19 @@
     clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2500);
   }
 
-  // ── Nav ───────────────────────────────────────────────
+  // ── Nav ──────────────────────────────────────────
   window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', scrollY > 20));
   document.getElementById('hamburger').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
 
-  // ── Init ──────────────────────────────────────────────
+  // ── Init ──────────────────────────────────────────
   document.getElementById('navWA').href    = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent('Hola! Me interesa una ancheta 🎁');
   document.getElementById('footerWA').href = 'https://wa.me/' + CONFIG.whatsapp;
 
   buildMiniSection('postres');
   buildMiniSection('fria');
   renderCart();
+  renderDecoSummary();
+
 </script>
 </body>
 </html>

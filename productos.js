@@ -50,7 +50,7 @@ const CATALOGO = [
     id: "p2",
     seccion: "postres",
     category: "tortas",
-    name: "Torta Red Velvet",
+    name: "Torta Red Velvet prueba",
     description: "Terciopelo rojo con crema de queso y frosting de mantequilla, perfecta para celebraciones.",
     price: 38000,
     unit: "porción",
@@ -494,6 +494,6 @@ const CATALOGO = [
 // ── Configuración general del negocio ──────────────────────
 const CONFIG = {
   whatsapp: "573001234567",   // ← CAMBIA ESTE NÚMERO por el real (con código de país, sin +)
-  empaque: 5000,              // costo de empaque y decoración en la ancheta
+  empaque: 0,              // ← Ya no se usa. El precio de decoración es dinámico (ver crea-tu-ancheta.html)
   nombre_negocio: "Anchetas con Amor"
 };
