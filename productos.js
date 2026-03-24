@@ -55,7 +55,7 @@ const CATALOGO = [
     price: 38000,
     unit: "porción",
     emoji: "🍰",
-    image: "",
+    image: "imagenes/descarga.jpg",
     badge: "nuevo",
     active: true
   },
