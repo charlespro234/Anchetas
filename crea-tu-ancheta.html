@@ -426,25 +426,47 @@
             <div class="dtr-icon">💐</div>
             <div class="dtr-info">
               <div class="dtr-name">Agregar flores</div>
-              <div class="dtr-price">+$12.000</div>
+              <div class="dtr-price" id="flores-precio-label">Desde $8.000</div>
             </div>
           </div>
           <div class="toggle-pill"></div>
         </div>
+
         <div class="deco-subopts" id="flores-subopts">
           <div class="deco-options">
-            <div class="deco-opt selected" data-key="flores-tipo" data-val="rosa" data-price="0" onclick="selectDecoOpt(this)">
+
+            <div class="deco-opt selected" data-key="flores-tipo" data-val="rosa" data-price="12000" onclick="selectFlor(this)">
               <div class="do-check">✓</div>
               <div class="do-icon">🌹</div>
               <div class="do-name">Rosas</div>
+              <div class="do-price">+$12.000</div>
               <div class="do-desc">Clásico y romántico</div>
             </div>
-            <div class="deco-opt" data-key="flores-tipo" data-val="girasol" data-price="0" onclick="selectDecoOpt(this)">
+
+            <div class="deco-opt" data-key="flores-tipo" data-val="girasol" data-price="10000" onclick="selectFlor(this)">
               <div class="do-check">✓</div>
               <div class="do-icon">🌻</div>
               <div class="do-name">Girasoles</div>
+              <div class="do-price">+$10.000</div>
               <div class="do-desc">Alegre y vibrante</div>
             </div>
+
+            <div class="deco-opt" data-key="flores-tipo" data-val="tulipan" data-price="15000" onclick="selectFlor(this)">
+              <div class="do-check">✓</div>
+              <div class="do-icon">🌷</div>
+              <div class="do-name">Tulipanes</div>
+              <div class="do-price">+$15.000</div>
+              <div class="do-desc">Elegante y especial</div>
+            </div>
+
+            <div class="deco-opt" data-key="flores-tipo" data-val="mixto" data-price="18000" onclick="selectFlor(this)">
+              <div class="do-check">✓</div>
+              <div class="do-icon">💐</div>
+              <div class="do-name">Bouquet mixto</div>
+              <div class="do-price">+$18.000</div>
+              <div class="do-desc">Variedad de flores</div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -593,6 +615,20 @@
     const subOpts   = document.getElementById(which + '-subopts');
     toggleRow.classList.toggle('active', DECO[which].active);
     subOpts.classList.toggle('visible', DECO[which].active);
+    // Al activar flores, leer el precio de la opción actualmente seleccionada
+    if (which === 'flores' && DECO.flores.active) {
+      const selected = document.querySelector('[data-key="flores-tipo"].selected');
+      if (selected) DECO.flores.price = parseInt(selected.dataset.price) || 0;
+    }
+    renderDecoSummary();
+    renderCart();
+  }
+
+  function selectFlor(el) {
+    document.querySelectorAll('[data-key="flores-tipo"]').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    DECO.flores.tipo  = el.dataset.val;
+    DECO.flores.price = parseInt(el.dataset.price) || 0;
     renderDecoSummary();
     renderCart();
   }
