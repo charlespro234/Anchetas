@@ -127,7 +127,7 @@ const CATALOGO = [
     active: true
   },
   {
-    id: "f2",
+    id: "f3",
     seccion: "fria",
     category: "snacks",
     name: "Mini pizzas x12",
